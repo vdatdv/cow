@@ -1,0 +1,25 @@
+services:
+  web:
+    image: nginx:alpine
+    ports: ["127.0.0.1:8080:80"]
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    restart: unless-stopped
+  api:
+    build: ./backend
+    env_file: .env
+    ports: ["127.0.0.1:3001:3001"]
+    volumes:
+      - ./backend/data:/app/data
+    restart: unless-stopped
+  dns:
+    image: adguard/adguardhome:latest
+    ports:
+      - "127.0.0.1:3000:3000/tcp"
+      - "127.0.0.1:3080:80/tcp"
+      - "127.0.0.1:5353:53/tcp"
+      - "127.0.0.1:5353:53/udp"
+    volumes:
+      - ./dns-server/work:/opt/adguardhome/work
+      - ./dns-server/conf:/opt/adguardhome/conf
+    restart: unless-stopped
