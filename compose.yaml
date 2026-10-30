@@ -17,8 +17,8 @@ services:
     ports:
       - "127.0.0.1:3000:3000/tcp"
       - "127.0.0.1:3080:80/tcp"
-      - "127.0.0.1:5353:53/tcp"
-      - "127.0.0.1:5353:53/udp"
+      - "127.0.0.1:5354:53/tcp"
+      - "127.0.0.1:5354:53/udp"
     volumes:
       - ./dns-server/work:/opt/adguardhome/work
       - ./dns-server/conf:/opt/adguardhome/conf
